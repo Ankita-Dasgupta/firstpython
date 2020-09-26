@@ -10,7 +10,6 @@ if termination_number <= 0:
 elif termination_number == 1:
  print("Fibonacci sequence upto", termination_number, ":")
  print(n1)
- #elseelse
 else:
  print("Fibonacci sequence:")
  while count < termination_number:
