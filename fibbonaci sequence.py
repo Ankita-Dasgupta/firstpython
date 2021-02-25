@@ -1,5 +1,5 @@
 print("welcome to fibonacci's sequence printer")
-termination_number = int(input("enter the number at which the sequence should terminate-> "))
+termination_number = int(input("enter the number of numbers in the sequence-> "))
 
 n1, n2 = 0, 1
 count = 0
