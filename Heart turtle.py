@@ -1,4 +1,6 @@
 import turtle
+
+
 import tkinter as tk
 pen = turtle.Turtle()
 
@@ -24,9 +26,11 @@ def txt():
     pen.down()
     pen.color('deep pink')
     style = ('Courier', 12, 'bold')
-    pen.write(" I love you so much ", font=style)
+    pen.write(" heart ", font=style)
 
 heart()
 txt()
 pen.ht()
 tk.mainloop()
+turtle.done()
+tk._exit()

@@ -13,7 +13,7 @@ while (number_of_elements != 2):
 
 if option_shortform[0].lower() == "n":
     firstName, lastName = p[0], p[1]
-    # two more variable for first letter and rest for each firstname and lastname
+    #two more variable for first letter and rest for each firstname and lastname
     x = str(firstName[0].upper())
     y = str(firstName[1:].lower())
     a = str(lastName[0].upper())
