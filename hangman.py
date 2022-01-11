@@ -1,56 +1,66 @@
-import random
-word_list = [
-    'wares',
-    'soup',
-    'mount',
-    'extend',
-    'brown',
-    'expert',
-    'tired',
-    'humidity',
-    'backpack',
-    'crust',
-    'dent'
-    ]
+def hangman():
+ import random
+ f=open("t1.txt")
+ word_list=f.read()
 
-def get_word():
+
+ def wordlist():    #words from text file
     word = random.choice(word_list)
-    return word.upper()
+    return word.upper()     #prevents error during comparision
 
-def play(word):
+
+ def game(word):
     word_completion = "_ " * len(word)
     guessed = False
-    check=[]
     guessed_letters = []
-    fills=[]
-    guessed_words = []
-    wrongs = 6
-
+    guessed_word = []
+    tries = 6
     print("Let's play Hangman!")
-    print(hangmanpics(wrongs))
+    print(display_hangman(tries))
     print(word_completion)
-    guess = input()
-
-    while wrongs>0 and guessed==False:
+    print("\n")
+    while not guessed and tries > 0:
         guess = input("Please guess a letter or word: ").upper()
-        if len(guess) == 1 and guess.isalpha(): # isalpha() determines if its alphabets or not
+        if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
-                print("You already guessed the letter ", guess)
+                print("You already guessed the letter", guess)
             elif guess not in word:
                 print(guess, "is not in the word.")
-                wrongs -= 1
+                tries -= 1
                 guessed_letters.append(guess)
-        elif len(guess)!=1 and guess!=word:
-            print("that is not the word")
-            wrongs -=1
+            else:
+                print("Good job,", guess, "is in the word!")
+                guessed_letters.append(guess)
+                word_as_list = list(word_completion)
+                indices = [i for i, letter in enumerate(word) if letter == guess]
+                for index in indices:
+                    word_as_list[index] = guess
+                word_completion = "".join(word_as_list)
+                if "_" not in word_completion:
+                    guessed = True
+        elif len(guess) == len(word) and guess.isalpha():
+            if guess in guessed_word:
+                print("You already guessed the word", guess)
+            elif guess != word:
+                print(guess, "is not the word.")
+                tries -= 1
+                guessed_word.append(guess)
+            else:
+                guessed = True
+                word_completion = word
         else:
-            print("you guessed the word")
+            print("Not a valid guess.")
+        print(display_hangman(tries))
+        print(word_completion)
+        print("\n")
+    if guessed:
+        print("Congrats, you guessed the word! You win!")
+    else:
+        print("Sorry, you ran out of tries. The word was " + word + ". Maybe next time!")
 
 
-
-
-def hangmanpics(wrongs):
-    stages = [
+ def display_hangman(tries):
+    stages = [  # final state: head, torso, both arms, and both legs
                 """
                    --------
                    |      |
@@ -60,7 +70,7 @@ def hangmanpics(wrongs):
                    |     / \\
                    -
                 """,
-
+                # head, torso, both arms, and one leg
                 """
                    --------
                    |      |
@@ -70,7 +80,7 @@ def hangmanpics(wrongs):
                    |     / 
                    -
                 """,
-
+                # head, torso, and both arms
                 """
                    --------
                    |      |
@@ -90,7 +100,7 @@ def hangmanpics(wrongs):
                    |     
                    -
                 """,
-
+                # head and torso
                 """
                    --------
                    |      |
@@ -100,7 +110,7 @@ def hangmanpics(wrongs):
                    |     
                    -
                 """,
-
+                # head
                 """
                    --------
                    |      |
@@ -110,7 +120,7 @@ def hangmanpics(wrongs):
                    |     
                    -
                 """,
-
+                # initial empty state
                 """
                    --------
                    |      |
@@ -121,7 +131,16 @@ def hangmanpics(wrongs):
                    -
                 """
     ]
-    return stages[wrongs]
+    return stages[tries]
+
+
+ def main():
+    word = wordlist()
+    play(word)
+    while input("Play Again? (Y/N) ").upper() == "Y":
+        word = wordlist()
+        play(word)
+
 
 
 
