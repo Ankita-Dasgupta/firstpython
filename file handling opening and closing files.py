@@ -1,10 +1,22 @@
 #creating a file
-file1= open("fs_overview.txt", "w+")
-file1.write("This is a course on forensic science.\n")
-file1.write("It is taught by University of Singapore.\n")
-file1.write("This is a 4 week course with 2 week deadlines.\n")
-file1.write("The father of forensic science is Edmond Locard.\n")
+file1= open("fs_overview.txt", "a+")
+line=" "
 file1.seek(0)
+'''
+v=0
+c=0
+while line:
+    line=file1.read(1)
+    for i in line.split():
+        if i in ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']:
+            v=v+1
+            print(i)
+        else:
+            c=c+1
+print("c=", c)
+print("v=", v)
+'''
+'''
 a=' '
 b=' '
 tot=0
@@ -16,12 +28,23 @@ while b:
 print("total size= without EOL", tot)
 print("size=", size)
 '''
+'''
+c=0
+'''
+a= ' '
 while a:
- a=file1.readline()#.strip(" ")
- print(a, end='')
-file1.seek(0)
+    a=file1.readline()#.strip()
+    print(a, end='')
+
+
+'''
 for i in file1:
     print(i)
 '''
-
+'''
+a=file1.readlines()
+count=len(a)
+print(a, count)
+'''
+file1.flush()
 file1.close()
